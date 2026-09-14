@@ -12,8 +12,10 @@ import {
 } from 'date-fns'
 import { ko } from 'date-fns/locale'
 
-/** 주 시작 = 월요일 (백엔드 due_groups 규칙과 동일) */
+/** 주 시작 = 월요일 (백엔드 due_groups "이번 주" 규칙과 동일, 빠른 마감 "다음 주 월") */
 export const WEEK_STARTS_ON = 1
+/** 달력 화면은 일요일부터 표시한다 (일 월 화 수 목 금 토) */
+export const CALENDAR_WEEK_STARTS_ON = 0
 export const CALENDAR_CELLS = 42
 
 export type DueTone = 'overdue' | 'today' | 'soon' | 'normal'
@@ -46,9 +48,9 @@ export function dueLabel(dueDate: string | null, dueTime: string | null, now: Da
   return { text: `D-${diff} · ${format(parseISO(dueDate), 'M/d(EEE)', { locale: ko })}`, tone: 'normal' }
 }
 
-/** 월간 달력 7×6 그리드 (월요일 시작) */
+/** 월간 달력 7×6 그리드 (일요일 시작) */
 export function monthGrid(month: Date): Date[] {
-  const start = startOfWeek(startOfMonth(month), { weekStartsOn: WEEK_STARTS_ON })
+  const start = startOfWeek(startOfMonth(month), { weekStartsOn: CALENDAR_WEEK_STARTS_ON })
   return Array.from({ length: CALENDAR_CELLS }, (_, i) => addDays(start, i))
 }
 
@@ -78,4 +80,7 @@ export function quickDueDates(now: Date): { today: string; tomorrow: string; nex
 export const formatHeaderDate = (date: Date) => format(date, 'M월 d일 EEEE', { locale: ko })
 export const formatMonthTitle = (date: Date) => format(date, 'yyyy년 M월')
 export const formatDayTitle = (date: Date) => format(date, 'M월 d일 (EEE)', { locale: ko })
+/** 반복 요일 선택용 (백엔드 weekdays: 월=0 … 일=6) */
 export const WEEKDAY_LABELS = ['월', '화', '수', '목', '금', '토', '일'] as const
+/** 달력 요일 줄용 (일요일 시작) */
+export const CALENDAR_WEEKDAY_LABELS = ['일', '월', '화', '수', '목', '금', '토'] as const

@@ -66,16 +66,19 @@ cat ~/.ssh/oci_todolist.pub   # 3단계에서 붙여넣기
 
 ### 4-2. VM 내부 iptables (VM)
 
-Oracle의 Ubuntu 이미지는 VM 안에서도 80/443을 막아 둡니다.
+Oracle의 Ubuntu 이미지는 VM 안에서도 80/443을 막아 둡니다. 규칙은 위에서부터 적용되므로 **REJECT 줄보다 위에** 넣어야 합니다. 이미지마다 REJECT의 번호가 달라서(5번 또는 6번) 먼저 번호를 찾습니다.
 
 ```bash
 ssh -i ~/.ssh/oci_todolist ubuntu@<PUBLIC_IP>
 
-sudo iptables -I INPUT 6 -m state --state NEW -p tcp --dport 80 -j ACCEPT
-sudo iptables -I INPUT 6 -m state --state NEW -p tcp --dport 443 -j ACCEPT
-sudo iptables -I INPUT 6 -m state --state NEW -p udp --dport 443 -j ACCEPT
+N=$(sudo iptables -L INPUT -n --line-numbers | awk '$2 == "REJECT" {print $1; exit}')
+sudo iptables -I INPUT "$N" -m state --state NEW -p tcp --dport 80 -j ACCEPT
+sudo iptables -I INPUT "$N" -m state --state NEW -p tcp --dport 443 -j ACCEPT
 sudo netfilter-persistent save
+sudo iptables -L INPUT -n --line-numbers   # 80·443 줄이 REJECT 줄보다 위에 있어야 합니다
 ```
+
+> 이미 REJECT 아래에 넣었다면 `sudo iptables -D INPUT <번호>`로 지운 뒤 위 명령으로 다시 넣으세요.
 
 ## 5. 서버 기본 설정 (VM)
 

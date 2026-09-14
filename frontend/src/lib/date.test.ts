@@ -43,19 +43,20 @@ describe('dueLabel', () => {
 })
 
 describe('monthGrid', () => {
-  it('has 42 cells starting on Monday', () => {
+  it('has 42 cells starting on Sunday', () => {
     const cells = monthGrid(new Date(2026, 8, 1))
     expect(cells).toHaveLength(42)
-    expect(cells[0].getDay()).toBe(1)
-    expect(toISODate(cells[0])).toBe('2026-08-31')
+    expect(cells[0].getDay()).toBe(0)
+    expect(toISODate(cells[0])).toBe('2026-08-30')
   })
 
   it('returns the grid range for the calendar API', () => {
-    expect(monthGridRange(new Date(2026, 8, 20))).toEqual({ from: '2026-08-31', to: '2026-10-11' })
+    expect(monthGridRange(new Date(2026, 8, 20))).toEqual({ from: '2026-08-30', to: '2026-10-10' })
   })
 
-  it('starts on the 1st when the month begins on Monday', () => {
-    expect(toISODate(monthGrid(new Date(2026, 5, 10))[0])).toBe('2026-06-01')
+  it('starts on the 1st when the month begins on Sunday', () => {
+    // 2026-03-01 = 일요일
+    expect(toISODate(monthGrid(new Date(2026, 2, 10))[0])).toBe('2026-03-01')
   })
 })
 

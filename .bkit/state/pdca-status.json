@@ -1,6 +1,6 @@
 {
   "version": "3.0",
-  "lastUpdated": "2026-09-14T02:25:52.415933Z",
+  "lastUpdated": "2026-09-14T05:31:54.809Z",
   "activeFeatures": [
     "todolist",
     "backend",
@@ -168,9 +168,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-09-14T01:29:29.666Z",
-        "lastUpdated": "2026-09-14T02:24:14.045Z"
+        "lastUpdated": "2026-09-14T05:31:28.703Z"
       },
-      "lastFile": "/Users/yongseok/Desktop/Python/todolist/frontend/src/main.tsx"
+      "lastFile": "/Users/yongseok/Desktop/Python/todolist/frontend/src/lib/date.test.ts"
     },
     "api": {
       "phase": "do",
@@ -246,9 +246,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-09-14T01:36:34.618Z",
-        "lastUpdated": "2026-09-14T01:54:58.730Z"
+        "lastUpdated": "2026-09-14T05:31:23.201Z"
       },
-      "lastFile": "/Users/yongseok/Desktop/Python/todolist/frontend/src/features/calendar/CalendarPage.tsx"
+      "lastFile": "/Users/yongseok/Desktop/Python/todolist/frontend/src/features/calendar/CalendarMonth.tsx"
     },
     "settings": {
       "phase": "do",
@@ -285,9 +285,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-09-14T02:17:17.864Z",
-        "lastUpdated": "2026-09-14T02:24:04.219Z"
+        "lastUpdated": "2026-09-14T05:31:54.809Z"
       },
-      "lastFile": "/Users/yongseok/Desktop/Python/todolist/frontend/e2e/helpers.ts"
+      "lastFile": "/Users/yongseok/Desktop/Python/todolist/frontend/e2e/actions.spec.ts"
     },
     "scratchpad": {
       "phase": "do",
@@ -311,7 +311,7 @@
   "session": {
     "startedAt": "2026-09-14T00:07:55.379Z",
     "onboardingCompleted": false,
-    "lastActivity": "2026-09-14T02:24:14.046Z"
+    "lastActivity": "2026-09-14T05:31:54.809Z"
   },
   "history": [
     {
@@ -1101,6 +1101,54 @@
         "module-5"
       ],
       "timestamp": "2026-09-14T02:25:52.415933Z"
+    },
+    {
+      "timestamp": "2026-09-14T05:31:10.224Z",
+      "feature": "frontend",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-14T05:31:12.704Z",
+      "feature": "frontend",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-14T05:31:15.518Z",
+      "feature": "frontend",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-14T05:31:19.756Z",
+      "feature": "calendar",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-14T05:31:21.764Z",
+      "feature": "calendar",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-14T05:31:23.201Z",
+      "feature": "calendar",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-14T05:31:28.704Z",
+      "feature": "frontend",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-14T05:31:54.809Z",
+      "feature": "e2e",
+      "phase": "do",
+      "action": "updated"
     }
   ],
   "stateMachine": {

@@ -102,6 +102,8 @@ test('L2-9 완료 항목 보기를 켜면 완료 섹션이 나온다', async ({ 
 
 test('L2-10 달력에서 다음 달로 이동하면 새 기간을 불러온다', async ({ page }) => {
   await page.goto('/calendar')
+  // 요일 줄은 일요일부터 시작한다
+  await expect(page.locator('main div[aria-hidden]').first()).toHaveText('일월화수목금토')
   const now = new Date()
   const next = new Date(now.getFullYear(), now.getMonth() + 1, 1)
 

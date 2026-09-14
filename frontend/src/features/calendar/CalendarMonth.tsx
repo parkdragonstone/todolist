@@ -1,6 +1,13 @@
-// Design Ref: §5.4 Calendar Grid — 7×6, 이번 달 외 dim, 오늘 primary 테두리, 선택일 indigo, 색 점 최대 3개 + "+N"
+// Design Ref: §5.4 Calendar Grid — 7×6(일요일 시작), 이번 달 외 dim, 오늘 primary 테두리, 선택일 indigo, 색 점 최대 3개 + "+N"
 import type { CalendarDay } from '@/api/types'
-import { formatDayTitle, formatMonthTitle, inMonth, monthGrid, toISODate, WEEKDAY_LABELS } from '@/lib/date'
+import {
+  CALENDAR_WEEKDAY_LABELS,
+  formatDayTitle,
+  formatMonthTitle,
+  inMonth,
+  monthGrid,
+  toISODate,
+} from '@/lib/date'
 
 interface CalendarMonthProps {
   month: Date
@@ -10,7 +17,8 @@ interface CalendarMonthProps {
   onSelect: (isoDate: string) => void
 }
 
-const WEEKDAY_CLASS = ['', '', '', '', '', 'text-toggle', 'text-primary']
+/** 일요일 primary(빨강), 토요일 청록 */
+const WEEKDAY_CLASS = ['text-primary', '', '', '', '', '', 'text-toggle']
 
 export function CalendarMonth({ month, days, selected, today, onSelect }: CalendarMonthProps) {
   const cells = monthGrid(month)
@@ -18,7 +26,7 @@ export function CalendarMonth({ month, days, selected, today, onSelect }: Calend
   return (
     <div className="mt-4">
       <div aria-hidden className="grid grid-cols-7 text-center text-meta font-semibold text-ink-sub">
-        {WEEKDAY_LABELS.map((label, index) => (
+        {CALENDAR_WEEKDAY_LABELS.map((label, index) => (
           <span key={label} className={`py-2 ${WEEKDAY_CLASS[index]}`}>
             {label}
           </span>
