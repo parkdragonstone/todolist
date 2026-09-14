@@ -1,0 +1,50 @@
+# Design Ref: §7.4, §11.1 — 운영(Oracle VM): app + Caddy(자동 HTTPS). app 포트는 외부에 공개하지 않는다.
+#   최초 1회: cp .env.example .env && mkdir -p data && sudo chown 10001:10001 data
+#   실행:     docker compose up -d --build
+name: todolist
+
+services:
+  app:
+    build: .
+    image: todolist:latest
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      COOKIE_SECURE: "true"
+    volumes:
+      - ./data:/data
+    expose:
+      - "8000"
+    mem_limit: 256m
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    environment:
+      DOMAIN: ${DOMAIN:?.env}
+    volumes:
+      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      app:
+        condition: service_healthy
+    mem_limit: 128m
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  caddy_data:
+  caddy_config:

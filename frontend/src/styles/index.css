@@ -1,0 +1,62 @@
+@import "tailwindcss";
+@import "./tokens.css";
+
+@layer base {
+  html,
+  body,
+  #root {
+    min-height: 100%;
+  }
+
+  body {
+    background: var(--color-bg);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+    overscroll-behavior-y: none;
+  }
+
+  button:not(:disabled) {
+    cursor: pointer;
+  }
+
+  /* iOS에서 16px 미만 입력창은 포커스 시 확대되므로 16px 고정 */
+  input,
+  textarea,
+  select {
+    font: inherit;
+    font-size: 16px;
+    color: inherit;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-toggle);
+    outline-offset: 2px;
+  }
+}
+
+/* 투명 date input을 칩 위에 겹쳐 둘 때 어디를 눌러도 날짜 선택기가 열리도록 */
+input.picker-overlay::-webkit-calendar-picker-indicator {
+  position: absolute;
+  inset: 0;
+  width: auto;
+  height: auto;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+@utility screen-x {
+  padding-inline: 20px;
+}
+
+@utility pt-safe {
+  padding-top: calc(var(--safe-top) + 12px);
+}
+
+/* 하단 탭바 + FAB에 가려지지 않도록 콘텐츠 하단 여백 */
+@utility pb-tabbar {
+  padding-bottom: calc(var(--tabbar-height) + var(--safe-bottom) + var(--fab-size) + 32px);
+}

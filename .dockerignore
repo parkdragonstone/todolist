@@ -1,0 +1,22 @@
+# 빌드 컨텍스트에서 제외 (용량·비밀 정보·로컬 산출물)
+.git
+.bkit
+.env
+.env.*
+!.env.example
+data
+docs
+**/*.db
+
+**/.venv
+**/__pycache__
+**/.pytest_cache
+**/.ruff_cache
+backend/tests
+
+**/node_modules
+frontend/dist
+frontend/dev-dist
+frontend/test-results
+frontend/playwright-report
+frontend/e2e/.auth

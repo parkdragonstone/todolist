@@ -1,0 +1,19 @@
+# 로컬 실행: app만 띄워 http://127.0.0.1:8000 으로 접속 (HTTPS 없음 → COOKIE_SECURE=false)
+#   docker compose -f docker-compose.local.yml up --build
+#   다른 설정 파일을 쓰려면: ENV_FILE=경로 docker compose -f docker-compose.local.yml up
+name: todolist-local
+
+services:
+  app:
+    build: .
+    image: todolist:latest
+    env_file: ${ENV_FILE:-.env}
+    environment:
+      COOKIE_SECURE: "false"
+    ports:
+      - "127.0.0.1:8000:8000"
+    volumes:
+      - todo_local_data:/data
+
+volumes:
+  todo_local_data:

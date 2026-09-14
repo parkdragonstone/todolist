@@ -1,0 +1,65 @@
+/* Design Ref: §5.0 — Alarmy 레퍼런스에서 추출한 디자인 토큰. 컴포넌트는 임의 hex 대신 이 토큰만 사용한다. */
+@theme {
+  /* surfaces */
+  --color-bg: #111214;
+  --color-surface: #1e1f23;
+  --color-surface-2: #2a2b30;
+  --color-line: #34353b;
+  --color-dim: rgb(0 0 0 / 0.6);
+
+  /* text */
+  --color-ink: #ffffff;
+  --color-ink-sub: #8e8f96;
+  --color-ink-dim: #5c5d63;
+
+  /* brand */
+  --color-primary: #f23d52;
+  --color-primary-press: #d93246;
+  --color-toggle: #2fb4e0;
+  --color-success: #f9c23c;
+  --color-indigo: #5157e6;
+
+  /* priority */
+  --color-prio-high: #f23d52;
+  --color-prio-mid: #ff9f3d;
+  --color-prio-low: #2fb4e0;
+
+  /* radius */
+  --radius-card: 12px;
+  --radius-button: 10px;
+  --radius-sheet: 20px;
+
+  /* typography */
+  --font-sans:
+    "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui,
+    "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+  --text-title: 26px;
+  --text-title--line-height: 1.3;
+  --text-section: 17px;
+  --text-body: 15px;
+  --text-meta: 12px;
+
+  /* motion */
+  --animate-check-pop: check-pop 250ms ease-out;
+  --animate-toast-in: toast-in 200ms ease-out;
+
+  @keyframes check-pop {
+    0% { transform: scale(0.8); }
+    60% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+  }
+  @keyframes toast-in {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}
+
+:root {
+  --tabbar-height: 64px;
+  --fab-size: 56px;
+  --content-max: 560px;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --sheet-duration: 220ms;
+  color-scheme: dark;
+}
