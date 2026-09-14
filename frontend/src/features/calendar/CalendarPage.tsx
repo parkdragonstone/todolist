@@ -1,5 +1,5 @@
 // Design Ref: §5.4 Calendar — 월 이동(버튼·좌우 스와이프), 선택일(?date=) 목록, FAB는 선택일을 마감으로 새 할일
-import { CalendarDays, ChevronLeft, ChevronRight } from 'lucide-react'
+import { CalendarDays, ChevronLeft, ChevronRight, PartyPopper } from 'lucide-react'
 import { type ReactNode, type TouchEvent, useRef, useState } from 'react'
 import { useSearchParams } from 'react-router'
 
@@ -78,6 +78,7 @@ export function CalendarPage() {
   }
 
   const day = calendar.data?.days[selected]
+  const dayHolidays = calendar.data?.holidays?.[selected] ?? []
   // 미완료를 먼저, 완료(취소선)는 뒤에
   const dayTasks = [...(day?.tasks ?? [])].sort((a, b) => Number(!!a.completed_at) - Number(!!b.completed_at))
 
@@ -112,6 +113,7 @@ export function CalendarPage() {
         <CalendarMonth
           month={month}
           days={calendar.data?.days ?? {}}
+          holidays={calendar.data?.holidays ?? {}}
           selected={selected}
           today={today}
           onSelect={selectDate}
@@ -120,6 +122,19 @@ export function CalendarPage() {
 
       <SectionHeader title={formatDayTitle(parseISODate(selected))} count={dayTasks.length} />
       {calendar.isError && <p className="text-body text-primary">일정을 불러오지 못했어요</p>}
+      {dayHolidays.length > 0 && (
+        <ul aria-label="공휴일" className="mb-2 flex flex-col gap-2">
+          {dayHolidays.map((name) => (
+            <li
+              key={name}
+              className="flex min-h-12 items-center gap-2 rounded-card bg-primary/10 px-4 text-body font-semibold text-primary"
+            >
+              <PartyPopper size={18} aria-hidden />
+              {name}
+            </li>
+          ))}
+        </ul>
+      )}
       {dayTasks.length > 0 ? (
         <ul className="flex flex-col gap-2">
           {dayTasks.map((task) => (
@@ -127,7 +142,12 @@ export function CalendarPage() {
           ))}
         </ul>
       ) : (
-        !calendar.isPending && <EmptyState icon={CalendarDays} title="이 날은 일정이 없어요" />
+        !calendar.isPending &&
+        (dayHolidays.length > 0 ? (
+          <p className="px-1 py-2 text-body text-ink-sub">등록된 할일은 없어요</p>
+        ) : (
+          <EmptyState icon={CalendarDays} title="이 날은 일정이 없어요" />
+        ))
       )}
     </section>
   )

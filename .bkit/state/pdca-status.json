@@ -1,6 +1,6 @@
 {
   "version": "3.0",
-  "lastUpdated": "2026-09-14T05:31:54.809Z",
+  "lastUpdated": "2026-09-14T05:46:52.643730Z",
   "activeFeatures": [
     "todolist",
     "backend",
@@ -21,7 +21,8 @@
     "settings",
     "deploy",
     "e2e",
-    "scratchpad"
+    "scratchpad",
+    "holidays.py"
   ],
   "primaryFeature": "todolist",
   "features": {
@@ -29,7 +30,7 @@
       "phase": "do",
       "planPath": "docs/01-plan/features/todolist.plan.md",
       "startedAt": "2026-09-14T00:26:42.927734Z",
-      "updatedAt": "2026-09-14T02:25:52.415933Z",
+      "updatedAt": "2026-09-14T05:46:52.643730Z",
       "designPath": "docs/02-design/features/todolist.design.md",
       "architecture": "Option C - Pragmatic (single app container + Caddy/DuckDNS)",
       "deployTarget": "Oracle Cloud Always Free, home region Japan (Tokyo/Osaka)",
@@ -41,10 +42,10 @@
         "module-5": "done"
       },
       "tests": {
-        "backend": "91 passed",
+        "backend": "95 passed",
         "coverage": "97%",
         "frontend": "vitest 18 passed, tsc/eslint clean, build ok; Chrome manual UI check passed (home, TaskSheet create/edit, projects reorder/detail, calendar, settings)",
-        "e2e": "playwright 18 passed (setup + L2 12 + L3 5)",
+        "e2e": "playwright 19 passed (setup + L2 13 + L3 5)",
         "docker": "arm64+amd64 build ok; local compose healthy; prod compose(caddy) https headers ok; app mem ~56MiB; image 285MB"
       },
       "issuesFound": [
@@ -53,6 +54,11 @@
         "401/logout: queryClient.clear() detached ['me'] observer (fixed: resetToLoggedOut)",
         "refetchOnWindowFocus true + staleTime 10s could miss device sync (fixed: 'always')",
         "docker-compose.yml DOMAIN error message ': ' broke YAML (fixed by user)"
+      ],
+      "changeRequests": [
+        "calendar week starts Sunday (일~토)",
+        "calendar day colors: Sunday/holiday primary, Saturday toggle(teal); overdue shown as tinted circle",
+        "Korean public holidays in GET /api/calendar via python-holidays (lunar + substitute holidays)"
       ]
     },
     "backend": {
@@ -64,9 +70,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-09-14T01:09:30.590Z",
-        "lastUpdated": "2026-09-14T01:23:02.546Z"
+        "lastUpdated": "2026-09-14T05:44:14.963Z"
       },
-      "lastFile": "/Users/yongseok/Desktop/Python/todolist/backend/app/cli.py"
+      "lastFile": "/Users/yongseok/Desktop/Python/todolist/backend/app/routers/calendar.py"
     },
     "tests": {
       "phase": "do",
@@ -77,9 +83,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-09-14T01:12:03.429Z",
-        "lastUpdated": "2026-09-14T01:21:58.257Z"
+        "lastUpdated": "2026-09-14T05:44:21.968Z"
       },
-      "lastFile": "/Users/yongseok/Desktop/Python/todolist/backend/tests/test_cli.py"
+      "lastFile": "/Users/yongseok/Desktop/Python/todolist/backend/tests/test_calendar.py"
     },
     "__init__.py": {
       "phase": "do",
@@ -181,9 +187,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-09-14T01:29:44.914Z",
-        "lastUpdated": "2026-09-14T02:24:10.064Z"
+        "lastUpdated": "2026-09-14T05:43:14.803Z"
       },
-      "lastFile": "/Users/yongseok/Desktop/Python/todolist/frontend/src/api/queries.ts"
+      "lastFile": "/Users/yongseok/Desktop/Python/todolist/frontend/src/api/types.ts"
     },
     "scripts": {
       "phase": "do",
@@ -246,7 +252,7 @@
       "documents": {},
       "timestamps": {
         "started": "2026-09-14T01:36:34.618Z",
-        "lastUpdated": "2026-09-14T05:31:23.201Z"
+        "lastUpdated": "2026-09-14T05:45:01.562Z"
       },
       "lastFile": "/Users/yongseok/Desktop/Python/todolist/frontend/src/features/calendar/CalendarMonth.tsx"
     },
@@ -285,7 +291,7 @@
       "documents": {},
       "timestamps": {
         "started": "2026-09-14T02:17:17.864Z",
-        "lastUpdated": "2026-09-14T05:31:54.809Z"
+        "lastUpdated": "2026-09-14T05:46:15.815Z"
       },
       "lastFile": "/Users/yongseok/Desktop/Python/todolist/frontend/e2e/actions.spec.ts"
     },
@@ -301,6 +307,19 @@
         "lastUpdated": "2026-09-14T02:21:27.956Z"
       },
       "lastFile": "/private/tmp/claude-501/-Users-yongseok-Desktop-Python-todolist/dd30f377-fa26-4987-9da8-b8ac086679ec/scratchpad/docker-check.sh"
+    },
+    "holidays.py": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-09-14T05:44:11.501Z",
+        "lastUpdated": "2026-09-14T05:44:11.501Z"
+      },
+      "lastFile": "/Users/yongseok/Desktop/Python/todolist/backend/app/services/holidays.py"
     }
   },
   "pipeline": {
@@ -311,7 +330,7 @@
   "session": {
     "startedAt": "2026-09-14T00:07:55.379Z",
     "onboardingCompleted": false,
-    "lastActivity": "2026-09-14T05:31:54.809Z"
+    "lastActivity": "2026-09-14T05:46:15.815Z"
   },
   "history": [
     {
@@ -1149,6 +1168,108 @@
       "feature": "e2e",
       "phase": "do",
       "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-14T05:43:14.804Z",
+      "feature": "api",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-14T05:43:28.713Z",
+      "feature": "calendar",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-14T05:43:30.509Z",
+      "feature": "calendar",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-14T05:43:32.407Z",
+      "feature": "calendar",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-14T05:43:35.754Z",
+      "feature": "calendar",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-14T05:43:41.564Z",
+      "feature": "calendar",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-14T05:44:11.502Z",
+      "feature": "holidays.py",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-14T05:44:12.983Z",
+      "feature": "backend",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-14T05:44:14.963Z",
+      "feature": "backend",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-14T05:44:19.097Z",
+      "feature": "tests",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-14T05:44:21.969Z",
+      "feature": "tests",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-14T05:44:26.848Z",
+      "feature": "e2e",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-14T05:45:01.562Z",
+      "feature": "calendar",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-14T05:45:03.618Z",
+      "feature": "e2e",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-14T05:45:05.317Z",
+      "feature": "e2e",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-14T05:46:15.815Z",
+      "feature": "e2e",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "feature": "todolist",
+      "phase": "do",
+      "action": "change_request_implemented",
+      "timestamp": "2026-09-14T05:46:52.643730Z"
     }
   ],
   "stateMachine": {

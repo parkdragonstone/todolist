@@ -141,7 +141,7 @@ docker compose logs -f caddy                      # "certificate obtained succes
 
 ## 8. 폰·PC에 설치
 
-1. `https://todolistpys.duckdns.org` 접속 → 로그인
+1. `https://<설정>.duckdns.org` 접속 → 로그인
 2. 설치
    - **iPhone**: Safari → 공유 → **홈 화면에 추가**
    - **Android**: Chrome 메뉴 → **앱 설치**

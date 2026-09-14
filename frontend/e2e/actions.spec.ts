@@ -131,6 +131,22 @@ test('L2-11 달력에서 날짜를 고르고 + 를 누르면 그 날짜가 마�
   await expect(dialog).toBeHidden()
 })
 
+test('L2-13 달력에서 공휴일·일요일은 빨강, 토요일은 청록이고 공휴일은 목록 맨 위에 보인다', async ({ page }) => {
+  // 2026-10-03(토) 개천절, 10-04(일), 10-10(토). 선택일(indigo) 스타일과 겹치지 않게 10-15(목)를 선택해 둔다
+  await page.goto('/calendar?date=2026-10-15')
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('2026년 10월')
+
+  const dayButton = (label: RegExp) => page.getByRole('button', { name: label })
+  const dayNumber = (label: RegExp) => dayButton(label).locator('span').first()
+  await expect(dayNumber(/^10월 3일 \(토\), 개천절/)).toHaveClass(/text-primary/)
+  await expect(dayNumber(/^10월 4일 \(일\)/)).toHaveClass(/text-primary/)
+  await expect(dayNumber(/^10월 10일 \(토\)/)).toHaveClass(/text-toggle/)
+  await expect(page.getByRole('list', { name: '공휴일' })).toHaveCount(0)
+
+  await dayButton(/^10월 3일 \(토\), 개천절/).click()
+  await expect(page.getByRole('list', { name: '공휴일' })).toContainText('개천절')
+})
+
 test('L2-12 설정에서 새 태그를 만들면 목록에 추가된다', async ({ page }) => {
   await page.goto('/settings')
   const name = `태그${Date.now().toString(36).slice(-5)}`

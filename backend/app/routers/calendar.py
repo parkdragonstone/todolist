@@ -10,6 +10,7 @@ from app.db import get_db
 from app.errors import validation_error
 from app.schemas import task_out
 from app.services.due_groups import is_overdue
+from app.services.holidays import korean_holidays
 from app.services.task_query import list_tasks
 
 router = APIRouter(prefix="/api/calendar", tags=["calendar"], dependencies=[Depends(require_auth)])
@@ -49,4 +50,11 @@ def get_calendar(
                 day["colors"].append(color)
         day["tasks"].append(task_out(task))
 
-    return {"data": {"from": from_.isoformat(), "to": to.isoformat(), "days": days}}
+    return {
+        "data": {
+            "from": from_.isoformat(),
+            "to": to.isoformat(),
+            "days": days,
+            "holidays": korean_holidays(from_, to),
+        }
+    }

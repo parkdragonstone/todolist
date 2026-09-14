@@ -38,6 +38,14 @@ def test_calendar_aggregates_days(auth_client, make_project, make_task):
     assert "2026-10-20" not in data["days"]
 
 
+def test_calendar_includes_korean_holidays(auth_client):
+    params = {"from": "2026-09-27", "to": "2026-10-10"}
+    data = auth_client.get("/api/calendar", params=params).json()["data"]
+    assert data["holidays"]["2026-10-03"] == ["개천절"]
+    assert data["holidays"]["2026-10-05"] == ["개천절 대체 휴일"]
+    assert "2026-09-25" not in data["holidays"]
+
+
 def test_calendar_can_exclude_done(auth_client, make_project, make_task):
     project = make_project()["id"]
     make_task(project, "열림", due_date="2026-09-15")

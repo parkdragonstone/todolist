@@ -144,6 +144,8 @@ export interface CalendarData {
   from: ISODate
   to: ISODate
   days: Record<ISODate, CalendarDay>
+  /** 한국 공휴일 (날짜 → 이름 목록) */
+  holidays: Record<ISODate, string[]>
 }
 
 export interface BackupInfo {

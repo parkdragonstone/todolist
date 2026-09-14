@@ -688,7 +688,9 @@ TaskSheet (바텀시트)
 #### Calendar (`/calendar`)
 
 - [ ] Header: "YYYY년 M월" + ‹ 이전달 / "오늘" / 다음달 › 버튼
-- [ ] Weekday row: 일 월 화 수 목 금 토 (일 primary 색, 토 청록) — 달력만 일요일 시작, "이번 주" 그룹·반복 요일은 월요일 기준 유지
+- [ ] Weekday row: 일 월 화 수 목 금 토 (일 primary 색, 토 청록 `toggle`) — 달력만 일요일 시작, "이번 주" 그룹·반복 요일은 월요일 기준 유지
+- [ ] Day number color: 일요일·공휴일 primary(빨강), 토요일 청록(`toggle`). 지난 미완료가 있는 날은 숫자 뒤 연한 primary 원(`bg-primary/15`)
+- [ ] Holidays: 선택일 목록 맨 위에 공휴일 행(🎉 이름), 날짜 버튼 aria-label에 공휴일 이름 포함
 - [ ] Grid: 7×6, 이번 달이 아닌 날짜는 dim, 오늘은 primary 테두리, 선택일은 indigo 채움
 - [ ] Day cell: 프로젝트 색 점 최대 3개 + 그 이상이면 "+N", 지난 미완료가 있으면 숫자 primary
 - [ ] Swipe: 좌우 스와이프로 월 이동 (모바일)
@@ -1134,6 +1136,7 @@ volumes: { caddy_data: {}, caddy_config: {} }
 |---------|------|---------|--------|
 | 0.1 | 2026-09-14 | Initial draft: Option C(Pragmatic) + Caddy/DuckDNS 선택 반영, Oracle 유휴 회수 정책 공식 문서로 재확인 | yongseok |
 | 0.2 | 2026-09-14 | 홈 리전 일본으로 변경(한국 리전 무료 가입 불가), Vercel·GCP 대안 검토 기록, A1 재고 부족 시 E2.1.Micro + amd64 빌드 대안 추가 | yongseok |
+| 0.6 | 2026-09-14 | 사용자 요청: 달력 날짜 색(일·공휴일 빨강, 토 청록), 한국 공휴일 표시 — `GET /api/calendar` 응답에 `holidays: {날짜: [이름]}` 추가(python-holidays, 음력·대체공휴일 포함, 외부 요청 없음) | yongseok |
 | 0.5 | 2026-09-14 | 사용자 요청: 달력 요일 순서를 일요일 시작(일~토)으로 변경 (`CALENDAR_WEEK_STARTS_ON`) | yongseok |
 | 0.4 | 2026-09-14 | Do(M5) 반영: `uvicorn[standard]`→`uvicorn`(이미지 축소), HEALTHCHECK `--start-interval=2s`, `refetchOnWindowFocus: 'always'`(기기 간 반영 SC), 401·로그아웃 시 `resetToLoggedOut`(clear() 후 구독 끊김 버그 수정, E2E L3-4에서 발견), Dockerfile 프론트 스테이지 `--platform=$BUILDPLATFORM`, E2E는 `frontend/e2e/`(auth.setup + L2 12 + L3 5) | yongseok |
 | 0.3 | 2026-09-14 | Do(M1~M4) 반영: 서비스워커 대기 문제 수정(§5.5), 공용 훅 `src/hooks/`(useNow·useSheetParams·useTaskToggle)과 `services/task_mutation.py` 추가, 보관된 프로젝트의 할일은 프로젝트 미지정 목록·달력에서 제외, TypeScript 6.0·`.npmrc legacy-peer-deps` | yongseok |
